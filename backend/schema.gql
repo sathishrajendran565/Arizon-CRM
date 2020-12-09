@@ -1,0 +1,39 @@
+type User {
+  UUID: String
+  Name: String
+  Email: String
+  Phone: String
+  LinkedInUrl: String
+  Tags: [SearchTag]
+}
+
+type SearchTag {
+  UUID: String
+  TagName: String
+}
+
+input UserInput {
+  Name: String
+  Email: String
+  Phone: String
+  LinkedInUrl: String
+  Tags: [TagInput]
+}
+
+input TagInput {
+  TagName: String
+}
+
+type Mutation {
+  postgresql_createUser(input: UserInput!): User
+}
+
+type Query {
+  postgresql_getUser(uuid: String!): User
+  postgresql_getUserByTags(tags: [String!]!): [User!]!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
